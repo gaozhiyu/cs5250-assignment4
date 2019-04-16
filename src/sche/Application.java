@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Application {
@@ -18,12 +19,30 @@ public class Application {
 		// TODO Auto-generated method stub
 		int currTime = 0;
 		List<ScheTask> scheTaskList = new ArrayList<ScheTask>();
-		while (!pList.isEmpty()) {
-			Task curr = pList.get(0);
-			if (curr.getStartTime() > currTime) {
-				currTime++;//stay idle
+		List<Task> availableTaskList = new ArrayList<Task>();
+		Task curr = null;
+		while (!pList.isEmpty() || !availableTaskList.isEmpty()) { 
+			
+			if (!pList.isEmpty() &&pList.get(0).getStartTime() <= currTime) {
+				curr = pList.get(0);
+				pList.remove(curr);
+				//availableTaskList.add(curr);
 			} else {
+				if(!availableTaskList.isEmpty() && availableTaskList.get(0).getStartTime()<=currTime) {
+					curr = availableTaskList.get(0);
+					availableTaskList.remove(curr);
+				}else {
+					currTime++;
+					if(pList.isEmpty() && availableTaskList.isEmpty() )
+					{
+						break;
+					}
+					else 
+						continue;
+				}
 				
+			}
+
 				if (curr.getBurstTime() <= quatm) {
 					ScheTask scheTask = new ScheTask();
 					scheTask.setStartTime(currTime);
@@ -32,7 +51,7 @@ public class Application {
 					scheTask.setWaitTime(currTime - curr.getLastExecTime());
 					scheTaskList.add(scheTask);
 					currTime += curr.getBurstTime();//process
-					pList.remove(curr);
+					//availableTaskList.add(curr);
 				} else {
 					ScheTask scheTask = new ScheTask();
 					scheTask.setStartTime(currTime);
@@ -42,15 +61,11 @@ public class Application {
 					scheTaskList.add(scheTask);
 					curr.setLastExecTime(currTime);
 					curr.setBurstTime(curr.getBurstTime()-quatm);
-					
-					if(pList.size()>1 && pList.get(1).getStartTime()>=currTime) {
-						pList.remove(curr);
-						pList.add(curr);
-					}
+					availableTaskList.add(curr);
 					currTime += quatm;//process
 				}
 			}
-		}
+		//}
 		for (ScheTask scheTask : scheTaskList) {
 			System.out.println(scheTask);
 		}
