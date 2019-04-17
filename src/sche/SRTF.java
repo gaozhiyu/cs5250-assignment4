@@ -10,11 +10,11 @@ public class SRTF {
 
 	public static void main(String[] args) {
 		List<Task> pList = retriveInput();
-		roundRobin(pList,2);
+		srtf(pList,2);
 
 	}
 
-	private static void roundRobin(List<Task> pList, int quatm) {
+	private static void srtf(List<Task> pList, int quatm) {
 		// TODO Auto-generated method stub
 		int currTime = 0;
 		List<ScheTask> scheTaskList = new ArrayList<ScheTask>();
@@ -50,13 +50,7 @@ public class SRTF {
 				scheTask.setExecTime(next.getBurstTime());
 				scheTaskList.add(scheTask);
 				currTime+= scheTask.getExecTime();
-				//remove the task
-				//add the schetask
-				//set the currTime
 			} else {
-//				process pList.get(0).getBurstTime()- currTime;
-//				create the task
-//				set currTime;
 				int execTime = pList.get(0).getStartTime()- currTime;
 				ScheTask scheTask = new ScheTask();
 				scheTask.setPid(next.getpID());
