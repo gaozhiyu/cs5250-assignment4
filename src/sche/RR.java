@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Application {
+public class RR {
 
 	public static void main(String[] args) {
 		List<Task> pList = retriveInput();
