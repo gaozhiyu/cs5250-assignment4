@@ -11,11 +11,23 @@ public class Application {
 
 	public static void main(String[] args) {
 		List<Task> pList = retriveInput();
-		roundRobin(pList,2);
+		int size = pList.size();
+		
+		List<ScheTask> scheTaskList = roundRobin(pList,2);
+		
+		int wait = 0;
+		
+		for (ScheTask scheTask : scheTaskList) {
+			System.out.println(scheTask);
+			wait += scheTask.getWaitTime();
+		}
+		
+		System.out.println(wait*1.0/size);
+		FileUtil.writeToFile("RR.txt", scheTaskList, wait*1.0/size);
 
 	}
 
-	private static void roundRobin(List<Task> pList, int quatm) {
+	private static List<ScheTask> roundRobin(List<Task> pList, int quatm) {
 		// TODO Auto-generated method stub
 		int currTime = 0;
 		List<ScheTask> scheTaskList = new ArrayList<ScheTask>();
@@ -69,6 +81,7 @@ public class Application {
 		for (ScheTask scheTask : scheTaskList) {
 			System.out.println(scheTask);
 		}
+		return scheTaskList;
 	}
 
 	public static List<Task> retriveInput() {

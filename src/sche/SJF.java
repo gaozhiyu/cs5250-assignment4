@@ -16,10 +16,22 @@ public class SJF {
 	
 	public static void main(String[] args) {
 		List<Task> pList = retriveInput();
-		srtf(pList);
+		
+		int size = pList.size();
+		List<ScheTask> scheTaskList = sjf(pList);
+		
+		int wait = 0;
+		
+		for (ScheTask scheTask : scheTaskList) {
+			System.out.println(scheTask);
+			wait += scheTask.getWaitTime();
+		}
+		
+		System.out.println(wait*1.0/size);
+		FileUtil.writeToFile("SJF.txt", scheTaskList, wait*1.0/size);
 	}
 
-	private static void srtf(List<Task> pList) {
+	private static List<ScheTask> sjf(List<Task> pList) {
 		// TODO Auto-generated method stub
 		int currTime = 0;
 		List<ScheTask> scheTaskList = new ArrayList<ScheTask>();
@@ -61,9 +73,8 @@ public class SJF {
 		}
 			
 			
-		for (ScheTask scheTask : scheTaskList) {
-			System.out.println(scheTask);
-		}
+
+		return scheTaskList;
 	}
 
 
@@ -74,20 +85,20 @@ public class SJF {
 		}else {
 			Task taskSel = availableTaskList.get(0);
 			double estimationSel = calculateEstimation(taskSel);
-			HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-			for(int i =0;i < availableTaskList.size();i++ ) {
+//			HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+			for(int i =1;i < availableTaskList.size();i++ ) {
 				
 				Task temp =  availableTaskList.get(i);
-				if(map.containsKey(temp.getpID())) {
-					continue;
-				}else {
+//				if(!map.containsKey(temp.getpID())) {
+//					continue;
+//				}else {
 					double tempEst= calculateEstimation(temp);
-					map.put(temp.getpID(),1);
-					if(tempEst > estimationSel) {
-						tempEst = estimationSel;
+//					map.put(temp.getpID(),1);
+					if(tempEst < estimationSel) {
+						estimationSel = tempEst;
 						taskSel = temp;
 					}
-				}
+//				}
 
 			}
 			if(estmap.containsKey(taskSel.getpID())) {

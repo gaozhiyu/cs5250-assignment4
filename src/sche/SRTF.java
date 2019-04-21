@@ -10,11 +10,22 @@ public class SRTF {
 
 	public static void main(String[] args) {
 		List<Task> pList = retriveInput();
-		srtf(pList,2);
+		int size = pList.size();
+		List<ScheTask> scheTaskList = srtf(pList);
+		
+		int wait = 0;
+		
+		for (ScheTask scheTask : scheTaskList) {
+			System.out.println(scheTask);
+			wait += scheTask.getWaitTime();
+		}
+		
+		System.out.println(wait*1.0/size);
+		FileUtil.writeToFile("SRTF.txt", scheTaskList, wait*1.0/size);
 
 	}
 
-	private static void srtf(List<Task> pList, int quatm) {
+	private static List<ScheTask> srtf(List<Task> pList) {
 		// TODO Auto-generated method stub
 		int currTime = 0;
 		List<ScheTask> scheTaskList = new ArrayList<ScheTask>();
@@ -66,6 +77,7 @@ public class SRTF {
 		for (ScheTask scheTask : scheTaskList) {
 			System.out.println(scheTask);
 		}
+		return scheTaskList;
 	}
 
 	private static Task retrieveRemainTime(List<Task> availableTaskList) {

@@ -1,2 +1,17 @@
-to be completed, scheduling SJF without using information from process.burst_time
-average waiting time 0.00 
+ScheTask [Pid=0, startTime=0, execTime=9, waitTime=0]
+ScheTask [Pid=1, startTime=9, execTime=8, waitTime=8]
+ScheTask [Pid=2, startTime=17, execTime=2, waitTime=15]
+ScheTask [Pid=3, startTime=19, execTime=2, waitTime=14]
+ScheTask [Pid=3, startTime=30, execTime=5, waitTime=0]
+ScheTask [Pid=2, startTime=35, execTime=6, waitTime=3]
+ScheTask [Pid=1, startTime=41, execTime=2, waitTime=10]
+ScheTask [Pid=0, startTime=43, execTime=8, waitTime=5]
+ScheTask [Pid=2, startTime=60, execTime=7, waitTime=0]
+ScheTask [Pid=1, startTime=67, execTime=3, waitTime=2]
+ScheTask [Pid=3, startTime=70, execTime=8, waitTime=4]
+ScheTask [Pid=0, startTime=78, execTime=2, waitTime=16]
+ScheTask [Pid=1, startTime=90, execTime=10, waitTime=0]
+ScheTask [Pid=0, startTime=100, execTime=10, waitTime=5]
+ScheTask [Pid=2, startTime=110, execTime=9, waitTime=12]
+ScheTask [Pid=3, startTime=119, execTime=8, waitTime=20]
+Average waiting time 7.125
